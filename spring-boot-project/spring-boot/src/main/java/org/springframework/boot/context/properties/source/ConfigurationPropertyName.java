@@ -524,9 +524,9 @@ public final class ConfigurationPropertyName implements Comparable<Configuration
 		if (this.elements.canShortcutWithSource(ElementType.UNIFORM, ElementType.DASHED)) {
 			return this.elements.getSource().toString();
 		}
-		int elements = getNumberOfElements();
-		StringBuilder result = new StringBuilder(elements * 8);
-		for (int i = 0; i < elements; i++) {
+		int numberOfElements = getNumberOfElements();
+		StringBuilder result = new StringBuilder(numberOfElements * 8);
+		for (int i = 0; i < numberOfElements; i++) {
 			boolean indexed = isIndexed(i);
 			if (result.length() > 0 && !indexed) {
 				result.append('.');
@@ -542,6 +542,7 @@ public final class ConfigurationPropertyName implements Comparable<Configuration
 		}
 		return result.toString();
 	}
+
 
 	/**
 	 * Returns if the given name is valid. If this method returns {@code true} then the
