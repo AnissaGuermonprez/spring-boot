@@ -86,11 +86,10 @@ class ConfigurationPropertiesBinder {
 		this.jsr303Present = ConfigurationPropertiesJsr303Validator.isJsr303Present(applicationContext);
 	}
 
-	BindResult<?> bind(ConfigurationPropertiesBean propertiesBean) {
+	void bind(ConfigurationPropertiesBean propertiesBean) {
 		Bindable<?> target = propertiesBean.asBindTarget();
 		ConfigurationProperties annotation = propertiesBean.getAnnotation();
 		BindHandler bindHandler = getBindHandler(target, annotation);
-		return getBinder().bind(annotation.prefix(), target, bindHandler);
 	}
 
 	Object bindOrCreate(ConfigurationPropertiesBean propertiesBean) {
