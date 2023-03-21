@@ -55,10 +55,6 @@ public class Jsp {
 		return this.className;
 	}
 
-	public void setClassName(String className) {
-		this.className = className;
-	}
-
 	/**
 	 * Return the init parameters used to configure the JSP servlet.
 	 * @return the init parameters
