@@ -170,10 +170,16 @@ public final class DataSourceBuilder<T extends DataSource> {
 	 */
 	public T build() {
 		DataSourceProperties<T> properties = DataSourceProperties.forType(this.classLoader, this.type);
-		DataSourceProperties<DataSource> deriveFromProperties = getDeriveFromProperties();
 		Class<? extends T> instanceType = (this.type != null) ? this.type : properties.getDataSourceInstanceType();
 		T dataSource = BeanUtils.instantiateClass(instanceType);
 		Set<DataSourceProperty> applied = new HashSet<>();
+		this.copyDataSourceProperties(properties, dataSource, applied);
+		this.applyDriverClassNamePropertyIfMissing(properties, dataSource, applied);
+		return dataSource;
+	}
+
+	private void copyDataSourceProperties(DataSourceProperties<T> properties, T dataSource, Set<DataSourceProperty> applied) {
+		DataSourceProperties<DataSource> deriveFromProperties = getDeriveFromProperties();
 		for (DataSourceProperty property : DataSourceProperty.values()) {
 			String value = this.values.get(property);
 			if (value == null && deriveFromProperties != null && properties.canSet(property)) {
@@ -184,15 +190,18 @@ public final class DataSourceBuilder<T extends DataSource> {
 				applied.add(property);
 			}
 		}
-		if (!applied.contains(DataSourceProperty.DRIVER_CLASS_NAME)
-				&& properties.canSet(DataSourceProperty.DRIVER_CLASS_NAME)
-				&& this.values.containsKey(DataSourceProperty.URL)) {
-			String url = this.values.get(DataSourceProperty.URL);
-			DatabaseDriver driver = DatabaseDriver.fromJdbcUrl(url);
-			properties.set(dataSource, DataSourceProperty.DRIVER_CLASS_NAME, driver.getDriverClassName());
-		}
-		return dataSource;
 	}
+
+	private void applyDriverClassNamePropertyIfMissing(DataSourceProperties<T> properties,T dataSource,Set<DataSourceProperty> applied) {
+		if (!applied.contains(DataSourceProperty.DRIVER_CLASS_NAME)
+			&& properties.canSet(DataSourceProperty.DRIVER_CLASS_NAME)
+			&& this.values.containsKey(DataSourceProperty.URL)) {
+		String url = this.values.get(DataSourceProperty.URL);
+		DatabaseDriver driver = DatabaseDriver.fromJdbcUrl(url);
+		properties.set(dataSource, DataSourceProperty.DRIVER_CLASS_NAME, driver.getDriverClassName());
+		}
+	}
+
 
 	@SuppressWarnings("unchecked")
 	private DataSourceProperties<DataSource> getDeriveFromProperties() {
