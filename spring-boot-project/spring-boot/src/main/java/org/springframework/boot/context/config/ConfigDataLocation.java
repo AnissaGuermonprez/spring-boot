@@ -123,27 +123,6 @@ public final class ConfigDataLocation implements OriginProvider {
 		return result;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null || getClass() != obj.getClass()) {
-			return false;
-		}
-		ConfigDataLocation other = (ConfigDataLocation) obj;
-		return this.value.equals(other.value);
-	}
-
-	@Override
-	public int hashCode() {
-		return this.value.hashCode();
-	}
-
-	@Override
-	public String toString() {
-		return (!this.optional) ? this.value : OPTIONAL_PREFIX + this.value;
-	}
 
 	/**
 	 * Create a new {@link ConfigDataLocation} with a specific {@link Origin}.
@@ -168,5 +147,30 @@ public final class ConfigDataLocation implements OriginProvider {
 		}
 		return new ConfigDataLocation(optional, value, null);
 	}
+
+
+	@Override
+	public String toString() {
+		return (!this.optional) ? this.value : OPTIONAL_PREFIX + this.value;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null || getClass() != obj.getClass()) {
+			return false;
+		}
+		ConfigDataLocation other = (ConfigDataLocation) obj;
+		return this.value.equals(other.value);
+	}
+
+	@Override
+	public int hashCode() {
+		return this.value.hashCode();
+	}
+
+
 
 }
