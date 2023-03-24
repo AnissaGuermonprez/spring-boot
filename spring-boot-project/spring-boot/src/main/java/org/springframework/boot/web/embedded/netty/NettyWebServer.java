@@ -35,6 +35,7 @@ import reactor.netty.http.server.HttpServer;
 import reactor.netty.http.server.HttpServerRequest;
 import reactor.netty.http.server.HttpServerResponse;
 import reactor.netty.http.server.HttpServerRoutes;
+import org.springframework.boot.web.embedded.undertow.PortIsEmptyException;
 
 import org.springframework.boot.web.server.GracefulShutdownCallback;
 import org.springframework.boot.web.server.GracefulShutdownResult;
@@ -208,7 +209,7 @@ public class NettyWebServer implements WebServer {
 	}
 
 	@Override
-	public int getPort() {
+	public int getPort() throws PortIsEmptyException {
 		if (this.disposableServer != null) {
 			try {
 				return this.disposableServer.port();

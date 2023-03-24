@@ -75,6 +75,11 @@ public class UndertowServletWebServer extends UndertowWebServer {
 		}
 		return handler;
 	}
+	
+	 @Override
+   	 public int getPort() throws PortIsEmptyException {
+       		return super.getPort();
+   	 }
 
 	@Override
 	protected String getStartLogMessage() {

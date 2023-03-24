@@ -37,6 +37,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.naming.ContextBindings;
 
+import org.springframework.boot.web.embedded.undertow.PortIsEmptyException;
 import org.springframework.boot.web.server.GracefulShutdownCallback;
 import org.springframework.boot.web.server.GracefulShutdownResult;
 import org.springframework.boot.web.server.PortInUseException;
@@ -359,7 +360,7 @@ public class TomcatWebServer implements WebServer {
 	}
 
 	@Override
-	public int getPort() {
+	public int getPort() throws PortIsEmptyException {
 		Connector connector = this.tomcat.getConnector();
 		if (connector != null) {
 			return connector.getLocalPort();
@@ -393,3 +394,4 @@ public class TomcatWebServer implements WebServer {
 	}
 
 }
+

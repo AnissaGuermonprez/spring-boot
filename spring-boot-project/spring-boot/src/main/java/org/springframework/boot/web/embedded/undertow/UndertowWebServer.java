@@ -280,13 +280,14 @@ public class UndertowWebServer implements WebServer {
 	}
 
 	@Override
-	public int getPort() {
+	public int getPort() throws PortIsEmptyException{
 		List<Port> ports = getActualPorts();
 		if (ports.isEmpty()) {
-			return -1;
+			throw new PortIsEmptyException("The ports list is empty"); 
 		}
 		return ports.get(0).getNumber();
 	}
+
 
 	@Override
 	public void shutDownGracefully(GracefulShutdownCallback callback) {

@@ -45,8 +45,8 @@ public interface WebServer {
 	 * Return the port this server is listening on.
 	 * @return the port (or -1 if none)
 	 */
-	int getPort();
-
+	int getPort() throws PortIsEmptyException;
+	
 	/**
 	 * Initiates a graceful shutdown of the web server. Handling of new requests is
 	 * prevented and the given {@code callback} is invoked at the end of the attempt. The
