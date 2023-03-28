@@ -162,20 +162,7 @@ public class JettyServletWebServerFactory extends AbstractServletWebServerFactor
 		configureWebAppContext(context, initializers);
 		server.setHandler(addHandlerWrappers(context));
 		this.logger.info("Server initialized with port: " + port);
-		if (getSsl() != null && getSsl().isEnabled()) {
-			customizeSsl(server, address);
-		}
-		for (JettyServerCustomizer customizer : getServerCustomizers()) {
-			customizer.customize(server);
-		}
-		if (this.useForwardHeaders) {
-			new ForwardHeadersCustomizer().customize(server);
-		}
-		if (getShutdown() == Shutdown.GRACEFUL) {
-			StatisticsHandler statisticsHandler = new StatisticsHandler();
-			statisticsHandler.setHandler(server.getHandler());
-			server.setHandler(statisticsHandler);
-		}
+		this.
 		return getJettyWebServer(server);
 	}
 

@@ -179,6 +179,36 @@ public abstract class AbstractConfigurableWebServerFactory implements Configurab
 	public Shutdown getShutdown() {
 		return this.shutdown;
 	}
+	
+	public configureServer() {
+		if (getSsl() != null && getSsl().isEnabled()) {
+
+			customizeSsl(server, address);
+
+		}
+
+		for (JettyServerCustomizer customizer : getServerCustomizers()) {
+
+			customizer.customize(server);
+
+		}
+
+		if (this.useForwardHeaders) {
+
+			new ForwardHeadersCustomizer().customize(server);
+
+		}
+
+		if (getShutdown() == Shutdown.GRACEFUL) {
+
+			StatisticsHandler statisticsHandler = new StatisticsHandler();
+
+			statisticsHandler.setHandler(server.getHandler());
+
+			server.setHandler(statisticsHandler);
+
+		}
+	}
 
 	/**
 	 * Return the provided {@link SslStoreProvider} or create one using {@link Ssl}
