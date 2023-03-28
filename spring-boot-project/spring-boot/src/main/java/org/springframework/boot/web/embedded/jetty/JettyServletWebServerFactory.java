@@ -162,7 +162,7 @@ public class JettyServletWebServerFactory extends AbstractServletWebServerFactor
 		configureWebAppContext(context, initializers);
 		server.setHandler(addHandlerWrappers(context));
 		this.logger.info("Server initialized with port: " + port);
-		this.
+		this.configureServer();
 		return getJettyWebServer(server);
 	}
 
