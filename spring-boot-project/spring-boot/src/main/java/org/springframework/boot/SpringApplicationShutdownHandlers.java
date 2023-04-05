@@ -17,6 +17,7 @@
 package org.springframework.boot;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 
 /**
  * Interface that can be used to add or remove code that should run when the JVM is
@@ -45,5 +46,7 @@ public interface SpringApplicationShutdownHandlers {
 	 * @param action the action to remove
 	 */
 	void remove(Runnable action);
+
+    void registerApplicationContext(ConfigurableApplicationContext context);
 
 }

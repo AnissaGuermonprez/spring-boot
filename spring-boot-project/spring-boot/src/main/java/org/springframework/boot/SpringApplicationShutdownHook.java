@@ -189,6 +189,11 @@ class SpringApplicationShutdownHook implements Runnable {
 			return this.actions;
 		}
 
+		@Override
+		public void registerApplicationContext(ConfigurableApplicationContext context) {
+			throw new UnsupportedOperationException("Unimplemented method 'registerApplicationContext'");
+		}
+
 	}
 
 	/**

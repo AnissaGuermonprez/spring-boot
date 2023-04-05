@@ -33,6 +33,7 @@ import org.springframework.boot.ApplicationContextFactory;
 import org.springframework.boot.Banner;
 import org.springframework.boot.BootstrapRegistry;
 import org.springframework.boot.BootstrapRegistryInitializer;
+import org.springframework.boot.ConfigureEnvironment;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.convert.ApplicationConversionService;
@@ -368,7 +369,7 @@ public class SpringApplicationBuilder {
 	 * @return the current builder
 	 */
 	public SpringApplicationBuilder main(Class<?> mainApplicationClass) {
-		this.application.setMainApplicationClass(mainApplicationClass);
+		this.application.getConfigureMain().setMainApplicationClass(mainApplicationClass);
 		return this;
 	}
 
@@ -483,7 +484,8 @@ public class SpringApplicationBuilder {
 	 */
 	public SpringApplicationBuilder properties(Map<String, Object> defaults) {
 		this.defaultProperties.putAll(defaults);
-		this.application.setDefaultProperties(this.defaultProperties);
+		ConfigureEnvironment configEnv = new ConfigureEnvironment(this.application);
+		configEnv.setDefaultProperties(this.defaultProperties);
 		if (this.parent != null) {
 			this.parent.properties(this.defaultProperties);
 			this.parent.environment(this.environment);

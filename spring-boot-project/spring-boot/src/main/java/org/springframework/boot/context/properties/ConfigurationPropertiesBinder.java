@@ -30,7 +30,6 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.boot.context.properties.bind.AbstractBindHandler;
 import org.springframework.boot.context.properties.bind.BindContext;
 import org.springframework.boot.context.properties.bind.BindHandler;
-import org.springframework.boot.context.properties.bind.BindResult;
 import org.springframework.boot.context.properties.bind.Bindable;
 import org.springframework.boot.context.properties.bind.Bindable.BindRestriction;
 import org.springframework.boot.context.properties.bind.Binder;
